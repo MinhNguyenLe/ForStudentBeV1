@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-//import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 //import passport from "passport";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -13,7 +13,7 @@ const app: Express = express();
 const PORT: string = process.env.PORT || "5678";
 
 app.use(express.json());
-//app.use(cookieParser());
+app.use(cookieParser());
 app.use(
   cors({
     origin: process.env.CLIENT_URL || `http://localhost:${PORT}`,
