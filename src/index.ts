@@ -1,16 +1,16 @@
-import express, { Express } from "express";
-import cookieParser from "cookie-parser";
+import express, { Express } from 'express';
+import cookieParser from 'cookie-parser';
 //import passport from "passport";
-import dotenv from "dotenv";
-import cors from "cors";
+import dotenv from 'dotenv';
+import cors from 'cors';
 
 //import "./middleware/passport";
-import { router } from "src/routes";
+import { router } from 'src/routes';
 
 dotenv.config();
 const app: Express = express();
 
-const PORT: string = process.env.PORT || "5678";
+const PORT: string = process.env.PORT || '7755';
 
 app.use(express.json());
 app.use(cookieParser());
@@ -22,7 +22,7 @@ app.use(
 );
 //app.use(passport.initialize());
 
-app.use("/api", router);
+app.use('/api', router);
 
 //app start
 export const appStart = () => {
