@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 
 export const getPosts =  (req: Request, res: Response) => {
   const query = {
-    text: 'SELECT * FROM posts',
+    text: 'SELECT posts.*, locations.* locations, shifts.* shifts FROM posts JOIN locations ON posts.fk_location = locations._id JOIN shifts ON posts.fk_shift = shifts._id',
   };
   
   poolCoreV1.query(

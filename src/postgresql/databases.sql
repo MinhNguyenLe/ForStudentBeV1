@@ -1,4 +1,4 @@
-CREATE DATABASE core_v1;
+CREATE DATABASE core_v3;
 
 CREATE TABLE users(
   user_id SERIAL PRIMARY KEY,
@@ -53,20 +53,32 @@ CREATE TABLE stars(
 
 CREATE TABLE locations(
   _id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
+  name VARCHAR(255) UNIQUE NOT NULL,
   created_at DATE DEFAULT CURRENT_DATE,
   updated_at DATE DEFAULT CURRENT_DATE
 );
+insert into locations (name) values ('DISTRICT_1');
+insert into locations (name) values ('DISTRICT_2');
+insert into locations (name) values ('DISTRICT_3');
+insert into locations (name) values ('DISTRICT_4');
+insert into locations (name) values ('DISTRICT_5');
 
 CREATE TABLE shifts(
   _id SERIAL PRIMARY KEY,
+  name VARCHAR(255) UNIQUE NOT NULL,
   description VARCHAR(255) NOT NULL,
   created_at DATE DEFAULT CURRENT_DATE,
   updated_at DATE DEFAULT CURRENT_DATE
 );
+insert into shifts (name, description) values ('SHIFT_1', 'from 6:00 to 12:00');
+insert into shifts (name, description) values ('SHIFT_2', 'from 12:00 to 18:00');
+insert into shifts (name, description) values ('SHIFT_3', 'from 18:00 to 00:00');
+insert into shifts (name, description) values ('SHIFT_4', 'from 00:00 to 6:00');
 
 CREATE TABLE posts(
   _id SERIAL PRIMARY KEY,
+  fk_location INT NOT NULL,
+  fk_shift INT NOT NULL,
   CONSTRAINT fk_location FOREIGN KEY(fk_location) REFERENCES locations(_id),
   CONSTRAINT fk_shift FOREIGN KEY(fk_shift) REFERENCES shifts(_id),
   description VARCHAR(255) NOT NULL,
@@ -74,6 +86,18 @@ CREATE TABLE posts(
   created_at DATE DEFAULT CURRENT_DATE,
   updated_at DATE DEFAULT CURRENT_DATE
 );
+insert into posts (description,fk_location, fk_shift, price) values ('post 1 example', 1, 1, 100.1);
+insert into posts (description,fk_location, fk_shift, price) values ('post 2 example', 2, 2, 22.2);
+insert into posts (description,fk_location, fk_shift, price) values ('post 3 example', 3, 3, 333.3);
+
+GRANT ALL PRIVILEGES ON TABLE locations TO minhlee;
+GRANT ALL PRIVILEGES ON TABLE locations__id_seq TO minhlee;
+
+GRANT ALL PRIVILEGES ON TABLE shifts TO minhlee;
+GRANT ALL PRIVILEGES ON TABLE shifts__id_seq TO minhlee;
+
+GRANT ALL PRIVILEGES ON TABLE posts TO minhlee;
+GRANT ALL PRIVILEGES ON TABLE posts__id_seq TO minhlee;
 
 /* ---------------- */
   
@@ -96,16 +120,3 @@ CREATE TABLE review_work_history(
   created_at DATE DEFAULT CURRENT_DATE,
   updated_at DATE DEFAULT CURRENT_DATE
 );
-
-/* ---------------- GRANT --------------- */
-
-GRANT ALL PRIVILEGES ON TABLE locations TO minhlee;
-GRANT ALL PRIVILEGES ON TABLE locations__id_seq TO minhlee;
-
-GRANT ALL PRIVILEGES ON TABLE shifts TO minhlee;
-GRANT ALL PRIVILEGES ON TABLE shifts__id_seq TO minhlee;
-
-GRANT ALL PRIVILEGES ON TABLE posts TO minhlee;
-GRANT ALL PRIVILEGES ON TABLE posts__id_seq TO minhlee;
-
-/* ---------------- */

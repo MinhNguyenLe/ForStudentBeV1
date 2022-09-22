@@ -21,9 +21,11 @@ export const poolAccount = new Pool({
 
 const poolCoreV1 = new Pool({
   ...poolConfigDefault,
-  database: process.env.DB_CORE || 'core_v2',
+  database: process.env.DB_CORE || 'core_v3',
   // connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
   // ssl: isProduction
 });
+
+console.log(`DB connecting at ${process.env.DB_CORE || 'core_v3'}`);
 
 export default poolCoreV1;
